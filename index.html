@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Unit Converter</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-exchange-alt"></i> Unit Converter</h1>
+            <div class="theme-toggle">
+                <i class="fas fa-moon"></i>
+                <div class="toggle-switch">
+                    <input type="checkbox" id="theme-toggle-checkbox">
+                    <label for="theme-toggle-checkbox"></label>
+                </div>
+                <i class="fas fa-sun"></i>
+            </div>
+        </header>
+
+        <div class="converter-container">
+            <div class="category-selector">
+                <select id="category-select">
+                    <option value="length">Length</option>
+                    <option value="mass">Mass/Weight</option>
+                    <option value="temperature">Temperature</option>
+                    <option value="area">Area</option>
+                    <option value="volume">Volume</option>
+                    <option value="time">Time</option>
+                    <option value="speed">Speed</option>
+                    <option value="pressure">Pressure</option>
+                    <option value="energy">Energy</option>
+                    <option value="power">Power</option>
+                    <option value="data">Digital Storage</option>
+                    <option value="angle">Angle</option>
+                    <option value="numeral">Numeral System</option>
+                    <option value="bmi">BMI Calculator</option>
+                    <option value="discount">Discount Calculator</option>
+                </select>
+                <i class="fas fa-chevron-down select-arrow"></i>
+            </div>
+
+            <div class="conversion-panel" id="standard-converter">
+                <div class="input-group">
+                    <input type="number" id="from-value" placeholder="Enter value">
+                    <div class="unit-select-wrapper">
+                        <select id="from-unit"></select>
+                        <i class="fas fa-chevron-down select-arrow"></i>
+                    </div>
+                </div>
+
+                <div class="swap-button">
+                    <button id="swap-units">
+                        <i class="fas fa-exchange-alt"></i>
+                    </button>
+                </div>
+
+                <div class="input-group">
+                    <input type="number" id="to-value" placeholder="Result" readonly>
+                    <div class="unit-select-wrapper">
+                        <select id="to-unit"></select>
+                        <i class="fas fa-chevron-down select-arrow"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- BMI Calculator Panel -->
+            <div class="specialized-panel" id="bmi-calculator" style="display: none;">
+                <div class="bmi-inputs">
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label for="bmi-weight">Weight</label>
+                            <input type="number" id="bmi-weight" placeholder="Enter weight">
+                            <div class="unit-select-wrapper">
+                                <select id="weight-unit">
+                                    <option value="kg">kg</option>
+                                    <option value="lb">lb</option>
+                                </select>
+                                <i class="fas fa-chevron-down select-arrow"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label for="bmi-height">Height</label>
+                            <input type="number" id="bmi-height" placeholder="Enter height">
+                            <div class="unit-select-wrapper">
+                                <select id="height-unit">
+                                    <option value="m">m</option>
+                                    <option value="cm">cm</option>
+                                    <option value="in">in</option>
+                                    <option value="ft">ft</option>
+                                </select>
+                                <i class="fas fa-chevron-down select-arrow"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="calculate-bmi" class="calculate-btn">Calculate BMI</button>
+                </div>
+                <div class="bmi-result">
+                    <div class="result-value">BMI: <span id="bmi-value">-</span></div>
+                    <div class="result-category">Category: <span id="bmi-category">-</span></div>
+                    <div class="bmi-scale">
+                        <div class="scale-item" style="background-color: #4caf50;">Underweight</div>
+                        <div class="scale-item" style="background-color: #8bc34a;">Normal</div>
+                        <div class="scale-item" style="background-color: #ffc107;">Overweight</div>
+                        <div class="scale-item" style="background-color: #ff5722;">Obese</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Discount Calculator Panel -->
+            <div class="specialized-panel" id="discount-calculator" style="display: none;">
+                <div class="discount-inputs">
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label for="original-price">Original Price</label>
+                            <input type="number" id="original-price" placeholder="Enter original price">
+                        </div>
+                    </div>
+                    <div class="input-row discount-type-row">
+                        <div class="discount-type">
+                            <input type="radio" id="percent-discount" name="discount-type" value="percent" checked>
+                            <label for="percent-discount">Discount Percentage (%)</label>
+                        </div>
+                        <div class="discount-type">
+                            <input type="radio" id="amount-discount" name="discount-type" value="amount">
+                            <label for="amount-discount">Discount Amount</label>
+                        </div>
+                    </div>
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label for="discount-value">Discount Value</label>
+                            <input type="number" id="discount-value" placeholder="Enter discount">
+                        </div>
+                    </div>
+                    <button id="calculate-discount" class="calculate-btn">Calculate</button>
+                </div>
+                <div class="discount-result">
+                    <div class="result-item">
+                        <span class="result-label">Discount Amount:</span>
+                        <span id="discount-amount">-</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Discount Percentage:</span>
+                        <span id="discount-percentage">-</span>
+                    </div>
+                    <div class="result-item final-price">
+                        <span class="result-label">Final Price:</span>
+                        <span id="final-price">-</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">You Save:</span>
+                        <span id="you-save">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="formula-display">
+                <p id="formula">Formula: <span id="formula-text">-</span></p>
+            </div>
+
+            <div class="quick-conversions">
+                <h3>Quick Conversions</h3>
+                <div id="quick-conversion-list"></div>
+            </div>
+        </div>
+
+        <div class="history-section">
+            <div class="history-header">
+                <h3><i class="fas fa-history"></i> Conversion History</h3>
+                <button id="clear-history"><i class="fas fa-trash"></i> Clear</button>
+            </div>
+            <div id="history-list"></div>
+        </div>
+
+        <footer>
+            <p>Created with <i class="fas fa-heart"></i> | by Tahmeed Shihab</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
